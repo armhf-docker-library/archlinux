@@ -1,0 +1,19 @@
+build:
+  image: armhfbuild/archlinux
+  privileged: true
+  commands:
+    - pacman -S --noconfirm arch-install-scripts
+    - mkdir root
+    - pacstrap -d root base
+
+publish:
+  docker:
+    username: $$DOCKER_USER
+    email: $$DOCKER_EMAIL
+    password: $$DOCKER_PASSWORD
+    repo: armhfbuild/archlinux
+
+notify:
+  slack:
+    webhook_url: $$SLACK_WEBHOOK_URL
+    channel: armhf
